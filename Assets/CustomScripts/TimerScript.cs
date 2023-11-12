@@ -4,13 +4,12 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public float totalTime = 60f;  // Total time for the timer in seconds
+    public float totalTime = 60f;
     public string item = "";
-    private float currentTime;      // Current time remaining
-    private bool isRunning = false; // Flag to check if the timer is currently running
-    private bool colorInterval = false;
+    private float currentTime;
+    private bool isRunning = false; 
 
-    public TextMeshProUGUI timerText;  // Reference to the Text component for displaying the timer
+    public TextMeshProUGUI timerText;
 
     void Start()
     {
@@ -18,60 +17,52 @@ public class Timer : MonoBehaviour
         isRunning = true;
     }
 
+    public void StartStopTimer()
+    {
+        isRunning = !isRunning;
+        //Add30Seconds();
+    }
+
     void Update()
     {
-        if (colorInterval && !isRunning)
+        if(isRunning)
         {
-            timerText.color = Color.red;
-            colorInterval = !colorInterval;
-        } else if(!isRunning) { 
-            timerText.color = Color.white;
-            colorInterval = !colorInterval;
+            currentTime -= Time.deltaTime;
+            TimerTextUpdate();
         }
-        currentTime -= Time.deltaTime;  // Update the timer based on real-time
-        UpdateTimerText();
     }
 
-    // Method to start the timer
-    public void StartTimer()
-    {
-        isRunning = true;
-    }
-
-    // Method to add 30 seconds to the timer
     public void Add30Seconds()
     {
         currentTime += 30f;
-        UpdateTimerText();  // Update the timer text after adding time
+        TimerTextUpdate();
     }
 
-    // Method to reset the timer to the initial total time
     public void ResetTimer()
     {
         currentTime = totalTime;
         isRunning = false;
-        UpdateTimerText();  // Update the timer text after resetting
+        TimerTextUpdate();
     }
 
-    // Method to update the timer text
-    private void UpdateTimerText()
+    private void TimerTextUpdate()
     {
+
         float currentTimeInSeconds = Mathf.Floor(currentTime);
-        if (currentTimeInSeconds % 2 == 0)
+        if(currentTimeInSeconds % 2 == 0 && currentTime < 0)
         {
-            // Set the text color to white if the time is even
-            timerText.color = Color.white;
-        }
-        else if(currentTimeInSeconds < 0)
-        {
-            // Set the text color to red if the time is odd
             timerText.color = Color.red;
         }
-        if(currentTime < 0)
+        else
+        {
+            timerText.color = Color.white;
+        }
+
+        if (currentTime < 0)
         {
             timerText.text = "00:00 - " + item;
         }
-         else
+        else
         {
             int minutes = Mathf.FloorToInt(currentTime / 60);
             int seconds = Mathf.FloorToInt(currentTime % 60);
