@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/NRSDK/Demos/HandTracking.unity
     guid: 7d33c4a3bc8da9745acac0e1d62c44bf
+  - enabled: 0
+    path: Assets/NRSDK/Demos/MappingExample.unity
+    guid: e75a8c0548f7c3b44a68f2662d18d5a0
   m_configObjects: {}
