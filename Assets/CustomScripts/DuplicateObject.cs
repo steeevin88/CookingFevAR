@@ -7,7 +7,7 @@ public class DuplicateObjectOnClick : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponent<Renderer>().material.color != Color.red)
+        if (Input.GetMouseButtonDown(0))
         {
             DuplicateObject();
         }
